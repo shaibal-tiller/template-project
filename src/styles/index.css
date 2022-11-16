@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.body {
+    height: 100%;
+    width: 100%;
+    
+}
+.header{
+    background-color: #03151F;
+    background-image: url('/public/banner2.jpg');
+    background-repeat:no-repeat;
+    background-size: coer ;
+}
