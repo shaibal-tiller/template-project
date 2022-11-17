@@ -4,12 +4,21 @@ import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import SelectDrop from './SelectDrop';
 
 
-const SideBoard = ({ project_name }) => {
+
+const SideBoard = ({ pDetails }) => {
 
 
+    const getSection = (title, description) => {
+        return (
+            <div>
+                <br />
+                <h2 className='ml-4 text-xl font-semibold'>{title}</h2>
+                <p className='mx-4 text-sm text-justify'>{description}</p>
 
+            </div>
+        )
+    }
     return (
-
         <div className=' h-full  side-content card-container w-[100%] '>
 
             <div className='text-xl font-semibold tracking-tight '
@@ -21,21 +30,11 @@ const SideBoard = ({ project_name }) => {
             <div className='board-content flex flex-col items-start ml-4'>
 
 
-                <SelectDrop  name={"location"} label="Select Location" element={[1, 2]} />
+                <SelectDrop name={"location"} label="Select Location" element={pDetails.location} />
 
-                <h2 className='ml-4 text-xl font-semibold'>Omuk</h2>
-                <p className='mx-4 text-sm text-justify'>badabudbab duaduab duab ud audu abduabudbaud
-                    auduaa abduad ada
-                    audu abduab udbauda da</p>
-                <p className='mx-4 text-sm text-justify'>badabudbab duaduab duab ud audu abduabudbaud
-                    auduaa abduad ada
-                    audu abduab udbauda da</p>
-                <p className='mx-4 text-sm text-justify'>badabudbab duaduab duab ud audu abduabudbaud
-                    auduaa abduad ada
-                    audu abduab udbauda da</p>
-                <p className='mx-4 text-sm text-justify'>badabudbab duaduab duab ud audu abduabudbaud
-                    auduaa abduad ada
-                    audu abduab udbauda da</p>
+                {getSection("Project Description", pDetails.description)}
+
+                {getSection("Funded By", pDetails.fund)}
 
             </div>
         </div>

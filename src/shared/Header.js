@@ -4,9 +4,9 @@ const Header = ({ Title = "",Sub="" }) => {
 
   
   return (
-    <div className="header z-[20] h-24 bg-right-bottom   text-[#f2f2f2]  w-full ">
-      <div className='w-[4.5rem] ml-4 mt-2.5 absolute '>
-        <a href='/' className='inline-block  rounded-3xl bg-opacity-90 bg-white'>
+    <div className="header  z-[20] h-24 bg-right-bottom   text-[#f2f2f2]  w-full ">
+      <div className='w-[2.5rem] sm:w-[4.5rem] ml-4 mt-2.5 absolute '>
+        <a href='/' className='inline-block   rounded-3xl sm:rounded-full bg-opacity-90 bg-white'>
           <img className='' src='/logo.png' alt='logo' />
         </a>
       </div>
@@ -25,5 +25,5 @@ const Header = ({ Title = "",Sub="" }) => {
     </div>
   )
 }
-
+ 
 export default Header

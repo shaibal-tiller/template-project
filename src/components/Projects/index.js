@@ -4,10 +4,12 @@ import Header from '../../shared/Header'
 import Footer from '../../shared/Footer'
 import SideBoard from '../../shared/SideBoard'
 import { setInitMap } from '../../utils/map_util'
-
+import allProjects from '../../utils/project_util'
 
 const Projects = () => {
+  
   const projectName = useHref().slice(1)
+  const pDetails = allProjects[projectName]
   const showMap = () => {
     const olmap = setInitMap();
     while (olmap.getControls().array_.length > 0)
@@ -24,19 +26,20 @@ const Projects = () => {
     const x = showMap()
   }, [])
   return (
-    <div className=''>
-      <Header Title={projectName.toUpperCase()} Sub={' Climate Resilient Inclusive Smart Cities '} />
-      <div className='grid grid-cols-12 overflow'>
+    <div className='h-[100vh]'>
+      <Header Title={pDetails.name.toUpperCase()} Sub={pDetails.sub.toUpperCase()} />
+      <div className='grid grid-cols-12 overflow -24'>
 
-        <div className="map-container col-span-9 ">
+        <div className="map-container col-span-9  ">
           <div id='map' className='' style={{  height: '100vh', width: '100%' }} >
           </div>
+         {/*  <Footer /> */}
         </div>
-        <div className=' sideboard-container col-span-3'>
-          <SideBoard project_name={projectName} />
+        <div className='  sideboard-container col-span-3'>
+          <SideBoard pDetails={pDetails} />
         </div>
       </div>
-      <Footer />
+      
     </div>
   )
 }
