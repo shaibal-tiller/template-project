@@ -1,45 +1,34 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useHref } from 'react-router'
 import Header from '../../shared/Header'
 import Footer from '../../shared/Footer'
 import SideBoard from '../../shared/SideBoard'
-import { setInitMap } from '../../utils/map_util'
+import Map from './map'
 import allProjects from '../../utils/project_util'
+import MenuOutlined from '@mui/icons-material/MenuOutlined'
 
 const Projects = () => {
-  
+
   const projectName = useHref().slice(1)
   const pDetails = allProjects[projectName]
-  const showMap = () => {
-    const olmap = setInitMap();
-    while (olmap.getControls().array_.length > 0)
-      olmap.removeControl(olmap.getControls().array_[0])
+  const [open, setOpen] = useState(false)
 
-    const mapElement = document.getElementById('map');
-
-    if (mapElement.childElementCount > 0)
-      mapElement.removeChild(mapElement.firstElementChild)
-    olmap.setTarget("map")
-    return olmap;
-  }
-  useEffect(() => {
-    const x = showMap()
-  }, [])
   return (
     <div className='h-[100vh]'>
       <Header Title={pDetails.name.toUpperCase()} Sub={pDetails.sub.toUpperCase()} />
-      <div className='grid grid-cols-12 overflow -24'>
-
+      <div className={` block sm:grid grid-cols-12 overflow -24`}>
+        <div onClick={() => { setOpen(!open) }} className='fixed md:hidden bg-slate-400 bg-opacity-40 p-1 ml-2 mt-2 hover:bg-slate-300 z-10'>
+          <MenuOutlined />
+        </div>
         <div className="map-container col-span-9  ">
-          <div id='map' className='' style={{  height: '100vh', width: '100%' }} >
-          </div>
-         {/*  <Footer /> */}
+          <Map />
         </div>
-        <div className='  sideboard-container col-span-3'>
+        { <div className='hidden sm:block sideboard-container col-span-3'>
           <SideBoard pDetails={pDetails} />
-        </div>
+        </div>}
+       
       </div>
-      
+
     </div>
   )
 }

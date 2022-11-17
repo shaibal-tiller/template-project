@@ -1,6 +1,6 @@
 import React from 'react'
 import Card from './Card'
-import projectList from '../../utils/project_util'
+import projectList from '../../../utils/project_util'
 const ProjectList = () => {
 
 
