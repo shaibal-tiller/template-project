@@ -1,13 +1,23 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState, } from 'react';
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import SelectDrop from './SelectDrop';
+import { GetContext } from '../components/App/Context';
 
 
 
 const SideBoard = ({ pDetails }) => {
+    const myContext = GetContext()
+    useEffect(() => {
+        if (myContext.sbData) {
+            /*  
+             ######### HANDLE CHANGES AFTER LOCAION CHANGE HERE #########
+             */
 
 
+            // console.log(myContext.sbData.location);
+        }
+    }, [myContext.sbData])
     const getSection = (title, description) => {
         return (
             <div>
