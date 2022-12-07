@@ -3,8 +3,13 @@ const CRISC = {
     name: 'CRISC',
     sub: 'Climate Resilient Inclusive Smart Cities',
     description: 'The planning of selected cities for urban development, including corresponding investment projects now takes into account the local adaptation needs for the cosequences of climate change.',
-    fund: "Gesellschaft für Internationale Zusammenarbeit(GIZ)",
-    location: ["sirajganj", "satkhira"]
+    fund: 'Gesellschaft für Internationale Zusammenarbeit(GIZ)',
+    location: ["sirajganj", "satkhira"],
+    acLayers: [{ "facilities": `administrative, otherStructure, educationalInst, helthService, utilityWash, religiousPlace ` },
+    { 'pf': `selectedArea, structureUse, otherStructure, floodWorks, waterBody, roadLine, roadPoly, drain` },
+    { 'boundary': `` },
+    { 'mejor': `` }],
+
 }
 const ACCNLDP = {
     id: 2,
@@ -13,7 +18,8 @@ const ACCNLDP = {
     description: 'ladjabd aduabda dau idbabd yuvadv a dauyv dyvadv aydvua vd adiabdv baubd audbaud' +
         +' add dadna dnai dnaoidna oid naoid aodnd aind aodn ianda dadiabd',
     fund: "jnjand abdjabjd abdjabdabd ajbdjbadbjab",
-    location: ["Shatkhira", "Khulna"]
+    location: ["Shatkhira", "Khulna"],
+    acLayers: ["tiller", "tiller1"],
 }
 const PKCP = {
     id: 3,
@@ -22,10 +28,11 @@ const PKCP = {
     description: 'ladjabd aduabda dauid babdy uvadv a dau yvdyv  advaydv avd adiabd vbaubd audb aud' +
         +' addda dnadnaid naoidnao idnaoid aodndaind aodn ianda dadiabd',
     fund: "jnjand abdjabjd abdjabdabd ajbdjbadbjab",
-    location: ["shirajganj", "shatkhira"]
+    location: ['pkcp'],
+    acLayers: ["tiller", "tiller1"],
 }
 var count = 0;
-const createProject = ({ id, name, sub = "", description, fund, location }) => {
+const createProject = ({ id, name, sub = "", description, fund, location, acLayers }) => {
     count += 1;
     return {
         id,
@@ -34,6 +41,7 @@ const createProject = ({ id, name, sub = "", description, fund, location }) => {
         description,
         fund,
         location,
+        acLayers
     }
 }
 

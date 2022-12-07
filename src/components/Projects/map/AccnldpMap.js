@@ -19,12 +19,12 @@ import { useParams } from "react-router-dom";
 
 // const location = `sirajganj`;
 
-const ProjecMap = ({ mapData }) => {
+const AccnldpMap = ({ mapData }) => {
   const myContext = GetContext();
   const [map, setMap] = useState();
   const mapElement = useRef();
   const pname = useParams().id
-  console.log("Hello puran")
+  // console.log(mapData.acLayers[1].pf)
 
   const location = myContext.sbData.location;
   let viewProps;
@@ -582,4 +582,4 @@ const ProjecMap = ({ mapData }) => {
   );
 }
 
-export default ProjecMap;
+export default AccnldpMap;

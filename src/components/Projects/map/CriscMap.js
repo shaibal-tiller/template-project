@@ -19,13 +19,13 @@ import { useParams } from "react-router-dom";
 
 // const location = `sirajganj`;
 
-const ProjecMap = ({ mapData }) => {
+const CriscMap = ({ mapData }) => {
   const myContext = GetContext();
   const [map, setMap] = useState();
   const mapElement = useRef();
   const pname = useParams().id
-  console.log("Hello puran")
-
+  console.log("hello crisc")
+console.log(mapData);
   const location = myContext.sbData.location;
   let viewProps;
   /*  ***************All Base Layers***************** */
@@ -582,4 +582,4 @@ const ProjecMap = ({ mapData }) => {
   );
 }
 
-export default ProjecMap;
+export default CriscMap;

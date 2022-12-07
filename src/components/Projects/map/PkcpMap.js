@@ -17,16 +17,16 @@ import { useParams } from "react-router-dom";
 
 
 
-// const location = `sirajganj`;
+const location = 'pkcp';
 
-const ProjecMap = ({ mapData }) => {
+const PkcpMap = ({ mapData }) => {
   const myContext = GetContext();
   const [map, setMap] = useState();
   const mapElement = useRef();
   const pname = useParams().id
-  console.log("Hello puran")
+  // console.log(mapData.acLayers[1].pf)
 
-  const location = myContext.sbData.location;
+
   let viewProps;
   /*  ***************All Base Layers***************** */
 
@@ -55,12 +55,23 @@ const ProjecMap = ({ mapData }) => {
   /*  ***************All  Layers***************** */
 
   let boundaryLayers; // layer Group 
-  let wardBoundary;
-  let municipalBoundary;
 
-  let mejoLayers; // layer Group 
+  let kalaparaUpzB;
+  let kalaparaPauB;
+  let kalaparaUniB;
+  let amtoliUpzB;
+  let amtoliPauB;
+  let taltaliUpzB;
+  let amtoliUniB;
+  let kalaparaPauUB;
+  let taltoliUniB;
+  let kuakataPauB;
+  let pkcpUniB;
+  let pkcpWallB;
+  let surveyGrid;
+
+  let majoLayers; // layer Group 
   let landUse;
-  let orthophoto;
 
 
   let physicalFeature; // layer Group 
@@ -72,65 +83,189 @@ const ProjecMap = ({ mapData }) => {
   let administrative;
   let educationalInst;
   let helthService;
-  let utilityWash;
-  let religiousPlace;
+  let utilityFeatures;
+  let growthCenter;
 
   let janina;  // layer Group 
   let waterBody;
   let roadLine;
   let roadPoly;
   let drain;
-  let floodWorks;
+  let bridgeCulvert;
 
 
   let AllLayers; // Legend layer Group 
 
   useEffect(() => {
     viewProps = new View({
-      //  zoom: 13.5,
+      zoom: 13.5,
       projection: 'EPSG:4326',
       maxZoom: 21,
+      center: [90.16056172080056, 21.909885565088118]
     });
-
-    if (location == 'satkhira') {
-      viewProps.setCenter([89.06775876918024, 22.70869722796283]);
-    } else viewProps.setCenter([89.694200286309, 24.443035173482207]);
-
 
     // Import All Boundary Layers 
-
-    wardBoundary = new TileLayer({
-      title: 'Ward Boundary',
-      description: `${pname}_${location}_ward_boundary`,
+    kalaparaUpzB = new TileLayer({
+      title: 'Kalapara Upazilla',
+      description: `${pname}_${location}_kalapara_upazila_boundary`,
       source: new TileWMS({
         url: 'http://118.179.197.118:8080/geoserver/wms',
-        params: { 'LAYERS': `${pname}_${location}_ward_boundary`, 'TILED': true },
+        params: { 'LAYERS': `${pname}_${location}_kalapara_upazila_boundary`, 'TILED': true },
         serverType: 'geoserver',
-        // Countries have transparency, so do not fade tiles:
         transition: 0,
       }),
-      opacity: .6,
-      minZoom: 14.1,
-      maxZoom: 16,
+      visible: false,
+    });
+
+    kalaparaPauB = new TileLayer({
+      title: 'Kalapara Paurashava',
+      description: `${pname}_${location}_kalapara_paurashava_boundary`,
+      source: new TileWMS({
+        url: 'http://118.179.197.118:8080/geoserver/wms',
+        params: { 'LAYERS': `${pname}_${location}_kalapara_paurashava_boundary`, 'TILED': true },
+        serverType: 'geoserver',
+        transition: 0,
+      }),
+      visible: false,
+    });
+
+    kalaparaUniB = new TileLayer({
+      title: 'Kalapara Union',
+      description: `${pname}_${location}_kalapara_union_boundary`,
+      source: new TileWMS({
+        url: 'http://118.179.197.118:8080/geoserver/wms',
+        params: { 'LAYERS': `${pname}_${location}_kalapara_union_boundary`, 'TILED': true },
+        serverType: 'geoserver',
+        transition: 0,
+      }),
+      visible: false,
+    });
+
+    kalaparaPauUB = new TileLayer({
+      title: 'Kalapara Paurashava Ward',
+      description: `${pname}_${location}_kalapara_paurashava_ward_boundary`,
+      source: new TileWMS({
+        url: 'http://118.179.197.118:8080/geoserver/wms',
+        params: { 'LAYERS': `${pname}_${location}_kalapara_paurashava_ward_boundary`, 'TILED': true },
+        serverType: 'geoserver',
+        transition: 0,
+      }),
+      visible: false,
+    });
+
+    amtoliUpzB = new TileLayer({
+      title: 'Amtali Upazila',
+      description: `${pname}_${location}_amtali_upazila_boundary`,
+      source: new TileWMS({
+        url: 'http://118.179.197.118:8080/geoserver/wms',
+        params: { 'LAYERS': `${pname}_${location}_amtali_upazila_boundary`, 'TILED': true },
+        serverType: 'geoserver',
+        transition: 0,
+      }),
+      visible: false,
+    });
+
+    amtoliPauB = new TileLayer({
+      title: 'Amtali Paurashava',
+      description: `${pname}_${location}_amtali_paurashava_boundary`,
+      source: new TileWMS({
+        url: 'http://118.179.197.118:8080/geoserver/wms',
+        params: { 'LAYERS': `${pname}_${location}_amtali_paurashava_boundary`, 'TILED': true },
+        serverType: 'geoserver',
+        transition: 0,
+      }),
+      visible: false,
+    });
+
+    taltaliUpzB = new TileLayer({
+      title: 'Taltali Upazila',
+      description: `${pname}_${location}_taltalii_upazila_boundary`,
+      source: new TileWMS({
+        url: 'http://118.179.197.118:8080/geoserver/wms',
+        params: { 'LAYERS': `${pname}_${location}_taltalii_upazila_boundary`, 'TILED': true },
+        serverType: 'geoserver',
+        transition: 0,
+      }),
+      visible: false,
+    });
+    amtoliUniB = new TileLayer({
+      title: 'Amtali Union',
+      description: `${pname}_${location}_amtali_union_boundary`,
+      source: new TileWMS({
+        url: 'http://118.179.197.118:8080/geoserver/wms',
+        params: { 'LAYERS': `${pname}_${location}_amtali_union_boundary`, 'TILED': true },
+        serverType: 'geoserver',
+        transition: 0,
+      }),
+      visible: false,
     });
 
 
-    municipalBoundary = new TileLayer({
-      title: 'Municipal Boundary',
-      description: `${location}_municipal_boundary`,
+
+    taltoliUniB = new TileLayer({
+      title: 'Taltali Union Boundary',
+      description: `${pname}_${location}_taltali_union_boundary`,
       source: new TileWMS({
         url: 'http://118.179.197.118:8080/geoserver/wms',
-        params: { 'LAYERS': `${pname}_${location}_municipal_boundary`, 'TILED': true },
+        params: { 'LAYERS': `${pname}_${location}_taltali_union_boundary`, 'TILED': true },
         serverType: 'geoserver',
-        // Countries have transparency, so do not fade tiles:
         transition: 0,
-
       }),
-      maxZoom: 14,
-      opacity: .9,
-
-      // maxZoom: 16,
+      visible: false,
     });
+
+
+    kuakataPauB = new TileLayer({
+      title: 'Kuakata paurashava Ward',
+      description: `${pname}_${location}_kuakata_paurashava_ward_boundary`,
+      source: new TileWMS({
+        url: 'http://118.179.197.118:8080/geoserver/wms',
+        params: { 'LAYERS': `${pname}_${location}_kuakata_paurashava_ward_boundary`, 'TILED': true },
+        serverType: 'geoserver',
+        transition: 0,
+      }),
+      visible: false,
+    });
+
+    pkcpUniB = new TileLayer({
+      title: 'All Union',
+      description: `${pname}_${location}_union_boundary`,
+      source: new TileWMS({
+        url: 'http://118.179.197.118:8080/geoserver/wms',
+        params: { 'LAYERS': `${pname}_${location}_union_boundary`, 'TILED': true },
+        serverType: 'geoserver',
+        transition: 0,
+      }),
+      visible: false,
+    });
+
+    pkcpWallB = new TileLayer({
+      title: 'Wall',
+      description: `${pname}_${location}_wall_boundary`,
+      source: new TileWMS({
+        url: 'http://118.179.197.118:8080/geoserver/wms',
+        params: { 'LAYERS': `${pname}_${location}_wall_boundary`, 'TILED': true },
+        serverType: 'geoserver',
+        transition: 0,
+      }),
+      visible: false,
+    });
+
+    surveyGrid = new TileLayer({
+      title: 'Wall',
+      description: `${pname}_${location}_survey_grid`,
+      source: new TileWMS({
+        url: 'http://118.179.197.118:8080/geoserver/wms',
+        params: { 'LAYERS': `${pname}_${location}_survey_grid`, 'TILED': true },
+        serverType: 'geoserver',
+        transition: 0,
+      }),
+      visible: false,
+    });
+
+
+
+
 
 
     // Import All Mejo Layers 
@@ -145,20 +280,7 @@ const ProjecMap = ({ mapData }) => {
         // Countries have transparency, so do not fade tiles:
         transition: 0,
       }),
-      opacity: 0.5
-    });
-
-    orthophoto = new TileLayer({
-      title: 'Orthophoto',
-      description: 'district_accessibility',
-      source: new TileWMS({
-        url: 'http://118.179.197.118:8080/geoserver/wms',
-        params: { 'LAYERS': `${pname}_${location}_orthophoto`, 'TILED': true },
-        serverType: 'geoserver',
-        // Countries have transparency, so do not fade tiles:
-        transition: 0,
-      }),
-
+      opacity: 0.6
     });
 
     // Import All Physical Layers 
@@ -215,7 +337,7 @@ const ProjecMap = ({ mapData }) => {
         // Countries have transparency, so do not fade tiles:
         transition: 0,
       }),
-    //  minZoom: 18,
+      // minZoom: 18,
     });
 
     educationalInst = new TileLayer({
@@ -244,12 +366,12 @@ const ProjecMap = ({ mapData }) => {
       minZoom: 17,
     });
 
-    utilityWash = new TileLayer({
-      title: 'Utility Wash',
-      description: `${pname}_${location}_utility_wash`,
+    utilityFeatures = new TileLayer({
+      title: 'Utility Features',
+      description: `${pname}_${location}_utility_features`,
       source: new TileWMS({
         url: 'http://118.179.197.118:8080/geoserver/wms',
-        params: { 'LAYERS': `${pname}_${location}_utility_wash`, 'TILED': true },
+        params: { 'LAYERS': `${pname}_${location}_utility_features`, 'TILED': true },
         serverType: 'geoserver',
         // Countries have transparency, so do not fade tiles:
         transition: 0,
@@ -257,12 +379,12 @@ const ProjecMap = ({ mapData }) => {
       minZoom: 18,
     });
 
-    religiousPlace = new TileLayer({
-      title: 'Religious',
-      description: `${pname}_${location}_religious`,
+    growthCenter = new TileLayer({
+      title: 'Growth Center',
+      description: `${pname}_${location}_growth_center`,
       source: new TileWMS({
         url: 'http://118.179.197.118:8080/geoserver/wms',
-        params: { 'LAYERS': `${pname}_${location}_religious`, 'TILED': true },
+        params: { 'LAYERS': `${pname}_${location}_growth_center`, 'TILED': true },
         serverType: 'geoserver',
         // Countries have transparency, so do not fade tiles:
         transition: 0,
@@ -324,12 +446,12 @@ const ProjecMap = ({ mapData }) => {
       minZoom: 17,
     });
 
-    floodWorks = new TileLayer({
-      title: 'Flood Works',
-      description: `${pname}_${location}_flood_works`,
+    bridgeCulvert = new TileLayer({
+      title: 'Bridge Culvert',
+      description: `${pname}_${location}_bridge_culvert`,
       source: new TileWMS({
         url: 'http://118.179.197.118:8080/geoserver/wms',
-        params: { 'LAYERS': `${pname}_${location}_flood_works`, 'TILED': true },
+        params: { 'LAYERS': `${pname}_${location}_bridge_culvert`, 'TILED': true },
         serverType: 'geoserver',
         // Countries have transparency, so do not fade tiles:
         transition: 0,
@@ -341,42 +463,67 @@ const ProjecMap = ({ mapData }) => {
     //All Layer Groups 
 
     boundaryLayers = new LayerGroup({
-      title: 'All Boundary',
+      title: 'Admin Boundary',
       fold: 'close',
-      layers: [wardBoundary, municipalBoundary]
+      layers: [
+        new LayerGroup({
+          title: 'Upazilla',
+          fold: 'close',
+          layers: [kalaparaUpzB, amtoliUpzB, taltaliUpzB]
+        }),
+        new LayerGroup({
+          title: 'Pauroshova',
+          fold: 'close',
+          layers: [kalaparaPauB, amtoliPauB]
+        }),
+        new LayerGroup({
+          title: 'Union',
+          fold: 'close',
+          layers: [kalaparaUniB, amtoliUniB, taltoliUniB, pkcpUniB]
+          //  layers: [kalaparaUpzB]
+        }),
+        new LayerGroup({
+          title: 'Ward',
+          fold: 'close',
+          layers: [kalaparaPauUB, kuakataPauB]
+
+        }),
+        pkcpWallB,
+        surveyGrid
+      ]
     });
 
-    mejoLayers = new LayerGroup({
-      title: 'Mejor',
+    majoLayers = new LayerGroup({
+      title: 'Major',
       fold: 'close',
-      layers: [orthophoto, landUse]
+      layers: [landUse]
     });
 
     physicalFeature = new LayerGroup({
       title: 'Physical Feature',
       fold: 'close',
-      layers: [selectedArea, structureUse, otherStructure, floodWorks, waterBody, roadLine, roadPoly, drain,]
+      layers: [administrative, selectedArea, structureUse, otherStructure, bridgeCulvert, waterBody, roadLine, roadPoly, drain] 
     });
 
     facilities = new LayerGroup({
       title: 'Facilities',
       fold: 'close',
-      layers: [administrative, otherStructure, educationalInst, helthService, utilityWash, religiousPlace,]
+      layers: [educationalInst, helthService, utilityFeatures, growthCenter,]
     });
 
     janina = new LayerGroup({
       title: 'Jani Na Ki Hobe',
       fold: 'close',
-      layers: [waterBody, roadLine, roadPoly, drain, floodWorks],
+      layers: [waterBody, roadLine, roadPoly, drain, bridgeCulvert],
     });
 
 
     // Layer Group for Legend  
 
     AllLayers = new LayerGroup({
-      layers: [landUse, structureUse, otherStructure, administrative, waterBody, roadLine, drain, educationalInst, helthService, wardBoundary, utilityWash, religiousPlace, municipalBoundary, floodWorks, selectedArea]
+      layers: [landUse, structureUse, otherStructure, administrative, waterBody, roadLine, drain, educationalInst, helthService, pkcpUniB, utilityFeatures, growthCenter, bridgeCulvert, selectedArea]
     });
-  }, [myContext.sbData.location])
+  }, [])
 
 
 
@@ -392,7 +539,7 @@ const ProjecMap = ({ mapData }) => {
           layers: [SatelliteMapp, GoogleMap],
         }),
 
-        mejoLayers,
+        majoLayers,
         boundaryLayers,
         physicalFeature,
         facilities,
@@ -566,9 +713,8 @@ const ProjecMap = ({ mapData }) => {
 
   useEffect(() => {
     showMap();
-    if (location !== undefined)
-      legend();
-  }, [myContext.sbData.location]);
+    legend();
+  }, []);
 
   return (
     <div className="mapRow">
@@ -582,4 +728,4 @@ const ProjecMap = ({ mapData }) => {
   );
 }
 
-export default ProjecMap;
+export default PkcpMap;

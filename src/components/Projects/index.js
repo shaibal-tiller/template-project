@@ -6,6 +6,9 @@ import SideBoard from '../../shared/SideBoard'
 import Map from './map'
 import allProjects from '../../utils/project_util'
 import MenuOutlined from '@mui/icons-material/MenuOutlined'
+import PkcpMap from './map/PkcpMap'
+import CriscMap from './map/CriscMap'
+import AccnldpMap from './map/AccnldpMap'
 
 const Projects = () => {
 
@@ -21,7 +24,10 @@ const Projects = () => {
           <MenuOutlined />
         </div>
         <div className="map-container col-span-9  ">
-          <Map />
+          {pDetails && pDetails.name.toLowerCase()==='crisc'? <CriscMap mapData={pDetails} /> :
+           pDetails.name.toLowerCase()==='accnldp'? <AccnldpMap mapData={pDetails} />:
+            pDetails.name.toLowerCase()==='pkcp'? <PkcpMap mapData={pDetails} />:
+             <Map mapData={pDetails}/> }
         </div>
         { <div className='hidden sm:block sideboard-container col-span-3'>
           <SideBoard pDetails={pDetails} />

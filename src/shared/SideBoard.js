@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import { useState, } from 'react';
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import SelectDrop from './SelectDrop';
 import { GetContext } from '../components/App/Context';
@@ -40,7 +39,7 @@ const SideBoard = ({ pDetails }) => {
             <div className='board-content flex flex-col items-start ml-4'>
 
 
-                <SelectDrop name={"location"} label="Select Location" element={pDetails.location} />
+           {pDetails.location.length>1 &&  < SelectDrop name={"location"} label="Select Location" element={pDetails.location} />}
 
                 {getSection("Project Description", pDetails.description)}
 
