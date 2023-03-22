@@ -1,0 +1,65 @@
+#info {
+    background-color: white;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #cccccc;
+    bottom: 12px;
+    display: none;
+}
+
+
+.ol-zoom.ol-unselectable.ol-control,
+.ol-rotate.ol-unselectable.ol-control.ol-hidden {
+    display: none;
+}
+
+#legend {
+    font-family: 'Courier New', Courier, monospace !important;
+    z-index: 11;
+    padding: 4px 8px;
+    border: 2px solid grey;
+    position: absolute;
+    bottom: 0px;
+    height: 45.5%;
+    overflow: scroll;
+    width: 15%;
+    left: 0.5rem;
+    background-color: #ffffff;
+    font-weight: bold;
+    display: none;
+}
+
+#legend h4 {
+    text-align: center;
+}
+
+#legend p {
+    line-height: 2.2;
+    font-size: medium;
+}
+
+#legend img {
+    max-height: 275px;
+    max-width: 80%;
+}
+
+
+#legendButton {
+    z-index: 11;
+    padding: 4px 4px;
+    position: absolute;
+    left: 0.5rem;
+    top: 50%;
+    font-size: 20px;
+    background-color: white;
+    border: 0;
+    border-radius: 5px;
+    color: #53C2CF;
+    width: 38px;
+    height: 35px;
+}
+
+#legendButton:focus-visible {
+    outline: 0;
+}

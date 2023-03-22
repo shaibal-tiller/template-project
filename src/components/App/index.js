@@ -7,9 +7,9 @@ import Header from '../../shared/Header';
 import Footer from '../../shared/Footer'
 function App() {
 
-  const [dt, setDt] = useState()
+  const [sbData, setSbData] = useState({})
   const data = {
-    dt, setDt
+    sbData, setSbData,
   }
   return (
     <AppContext.Provider value={data}>
