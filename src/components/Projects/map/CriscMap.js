@@ -24,8 +24,8 @@ const CriscMap = ({ mapData }) => {
   const [map, setMap] = useState();
   const mapElement = useRef();
   const pname = useParams().id
-  console.log("hello crisc")
-console.log(mapData);
+  // console.log("hello crisc")
+  // console.log(mapData);
   const location = myContext.sbData.location;
   let viewProps;
   /*  ***************All Base Layers***************** */
@@ -58,9 +58,10 @@ console.log(mapData);
   let wardBoundary;
   let municipalBoundary;
 
-  let mejoLayers; // layer Group 
+  let majoLayers; // layer Group 
   let landUse;
   let orthophoto;
+  let mouza;
 
 
   let physicalFeature; // layer Group 
@@ -98,6 +99,22 @@ console.log(mapData);
 
 
     // Import All Boundary Layers 
+
+    mouza = new TileLayer({
+      title: 'Mouza',
+      description: `${pname}_${location}_mouza`,
+      source: new TileWMS({
+        url: 'http://118.179.197.118:8080/geoserver/wms',
+        params: { 'LAYERS': `${pname}_${location}_mouza`, 'TILED': true },
+        serverType: 'geoserver',
+        // Countries have transparency, so do not fade tiles:
+        transition: 0,
+      }),
+      opacity: 1,
+      minZoom: 17,
+    });
+
+
 
     wardBoundary = new TileLayer({
       title: 'Ward Boundary',
@@ -186,8 +203,8 @@ console.log(mapData);
         // Countries have transparency, so do not fade tiles:
         transition: 0,
       }),
-      opacity: 1,
-      minZoom: 17.5,
+      opacity: 0.7,
+      minZoom: 18.5,
     });
 
     otherStructure = new TileLayer({
@@ -200,7 +217,8 @@ console.log(mapData);
         // Countries have transparency, so do not fade tiles:
         transition: 0,
       }),
-      minZoom: 17.5,
+      opacity: 0.7,
+      minZoom: 18.5,
     });
 
     // Import All Facilities Layers 
@@ -215,7 +233,7 @@ console.log(mapData);
         // Countries have transparency, so do not fade tiles:
         transition: 0,
       }),
-    //  minZoom: 18,
+      //  minZoom: 18,
     });
 
     educationalInst = new TileLayer({
@@ -346,10 +364,10 @@ console.log(mapData);
       layers: [wardBoundary, municipalBoundary]
     });
 
-    mejoLayers = new LayerGroup({
-      title: 'Mejor',
+    majoLayers = new LayerGroup({
+      title: 'Major',
       fold: 'close',
-      layers: [orthophoto, landUse]
+      layers: [orthophoto, landUse, mouza]
     });
 
     physicalFeature = new LayerGroup({
@@ -392,7 +410,7 @@ console.log(mapData);
           layers: [SatelliteMapp, GoogleMap],
         }),
 
-        mejoLayers,
+        majoLayers,
         boundaryLayers,
         physicalFeature,
         facilities,
@@ -419,7 +437,7 @@ console.log(mapData);
       overlay.setPosition(coordinates);
 
       // Structure use information
-      const structueUseInfo = structureUse.getSource().getFeatureInfoUrl(
+      const structueUseInfo = mouza.getSource().getFeatureInfoUrl(
         coordinates,
         viewResolution,
         'EPSG:4326',
@@ -430,18 +448,29 @@ console.log(mapData);
           .then(response => response.json())
           .then((html) => {
             if (html.features.length > 0) {
+              // const shownData = `
+              // <b>Structure Name</b>: ${html.features[0].properties.str_name ? html.features[0].properties.str_name : 'Not Found'} 
+              // <br> <b>Structure Type</b>: ${html.features[0].properties.str_typ ? html.features[0].properties.str_typ : 'Not Found'} 
+              // <br><b>Number of Floor</b>:${html.features[0].properties.floor_no ? html.features[0].properties.floor_no : 'Not Found'} 
+              // <br><b>First Use</b>: ${html.features[0].properties.use_1st ? html.features[0].properties.use_1st : 'Not Found'} 
+              // <br><b>Second Use</b>: ${html.features[0].properties.use_2nd ? html.features[0].properties.use_2nd : 'Not Found'} 
+              // <br><b>Third Use</b>: ${html.features[0].properties.use_3rd ? html.features[0].properties.use_3rd : 'Not Found'}
+              // <br><b>Ward No </b>:${html.features[0].properties.Ward_No ? html.features[0].properties.Ward_No : 'Not Found'} 
+              // <br><b>Municipality </b>:${html.features[0].properties.Municipality ? html.features[0].properties.Municipality : 'Not Found'} 
+              // <br><b>Upazila </b>:${html.features[0].properties.Upazila ? html.features[0].properties.Upazila : 'Not Found'} `;
               const shownData = `
-              <b>Structure Name</b>: ${html.features[0].properties.str_name ? html.features[0].properties.str_name : 'Not Found'} 
-              <br> <b>Structure Type</b>: ${html.features[0].properties.str_typ ? html.features[0].properties.str_typ : 'Not Found'} 
-              <br><b>Number of Floor</b>:${html.features[0].properties.floor_no ? html.features[0].properties.floor_no : 'Not Found'} 
-              <br><b>First Use</b>: ${html.features[0].properties.use_1st ? html.features[0].properties.use_1st : 'Not Found'} 
-              <br><b>Second Use</b>: ${html.features[0].properties.use_2nd ? html.features[0].properties.use_2nd : 'Not Found'} 
-              <br><b>Third Use</b>: ${html.features[0].properties.use_3rd ? html.features[0].properties.use_3rd : 'Not Found'}
-              <br><b>Ward No </b>:${html.features[0].properties.Ward_No ? html.features[0].properties.Ward_No : 'Not Found'} 
-              <br><b>Municipality </b>:${html.features[0].properties.Municipality ? html.features[0].properties.Municipality : 'Not Found'} 
-              <br><b>Upazila </b>:${html.features[0].properties.Upazila ? html.features[0].properties.Upazila : 'Not Found'} `;
+              <b>District</b>: ${html.features[0].properties.district ? html.features[0].properties.district : 'Not Found'}
+              <br> <b>Upazila</b>: ${html.features[0].properties.upazila ? html.features[0].properties.upazila : 'Not Found'}
+              <br> <b>Union name</b>: ${html.features[0].properties.union_name ? html.features[0].properties.union_name : 'Not Found'}
+              <br> <b>Mouza Name</b>: ${html.features[0].properties.mouza_name ? html.features[0].properties.mouza_name : 'Not Found'}
+              <br> <b>Sheet No</b>: ${html.features[0].properties.sheet_no ? html.features[0].properties.sheet_no : 'Not Found'}
+              <br> <b>JL No</b>: ${html.features[0].properties.jl_no ? html.features[0].properties.jl_no : 'Not Found'}
+              <br> <b>Plot No</b>: ${html.features[0].properties.plot_no ? html.features[0].properties.plot_no : 'Not Found'}
+              <br> <b>Landuse</b>: ${html.features[0].properties.landuse ? html.features[0].properties.landuse : 'Not Found'}            
+              <br> <b>Plot Type</b>: ${html.features[0].properties.plot_type ? html.features[0].properties.plot_type : 'Not Found'}
+              `;
               dupElement.innerHTML = shownData;
-              if (olmap.getView().getZoom() > 14) {
+              if (olmap.getView().getZoom() > 17) {
                 olmap.addOverlay(overlay);
               }
             } else {

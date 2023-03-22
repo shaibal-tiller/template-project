@@ -12,22 +12,20 @@ const CRISC = {
 
 }
 const ACCNLDP = {
-    id: 2,
+    id: 3,
     name: 'ACCNLDP',
-    sub: 'Adaptation to Climate Change into the National and Local Development Planning II',
-    description: 'ladjabd aduabda dau idbabd yuvadv a dauyv dyvadv aydvua vd adiabdv baubd audbaud' +
-        +' add dadna dnai dnaoidna oid naoid aodnd aind aodn ianda dadiabd',
-    fund: "jnjand abdjabjd abdjabdabd ajbdjbadbjab",
+    sub: 'Adaptation to Climate Change into the National and Local Development Planning Phase-II',
+    description: 'Adaptation to Climate Change into the National and Local Development Planning Phase-II' ,
+    fund: "German Federal Ministry for Economic Cooperation and Development (BMZ) & GoB",
     location: ["Shatkhira", "Khulna"],
     acLayers: ["tiller", "tiller1"],
 }
 const PKCP = {
-    id: 3,
+    id: 2,
     name: 'PKCP',
-    sub: 'Payra-Kuakata Comprehensive Plan',
-    description: 'ladjabd aduabda dauid babdy uvadv a dau yvdyv  advaydv avd adiabd vbaubd audb aud' +
-        +' addda dnadnaid naoidnao idnaoid aodndaind aodn ianda dadiabd',
-    fund: "jnjand abdjabjd abdjabdabd ajbdjbadbjab",
+    sub: 'Preparation of Payra-Kuakata Comprehensive Plan Focusing on Eco-Tourism (PKCP)- Package 02 & Package 03',
+    description: 'Preparation of Payra-Kuakata Comprehensive Plan Focusing on Eco-Tourism (PKCP)- Package 02 & Package 03',
+    fund: "Government of Bangladesh (GoB)",
     location: ['pkcp'],
     acLayers: ["tiller", "tiller1"],
 }
@@ -47,6 +45,6 @@ const createProject = ({ id, name, sub = "", description, fund, location, acLaye
 
 export default {
     crisc: createProject(CRISC),
-    accnldp: createProject(ACCNLDP),
+//    accnldp: createProject(ACCNLDP),
     pkcp: createProject(PKCP),
 }
