@@ -430,6 +430,7 @@ const ProjecMap = ({ mapData }) => {
           .then(response => response.json())
           .then((html) => {
             if (html.features.length > 0) {
+              
               const shownData = `
               <b>Structure Name</b>: ${html.features[0].properties.str_name ? html.features[0].properties.str_name : 'Not Found'} 
               <br> <b>Structure Type</b>: ${html.features[0].properties.str_typ ? html.features[0].properties.str_typ : 'Not Found'} 

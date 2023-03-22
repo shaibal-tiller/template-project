@@ -11,7 +11,7 @@ import SatelliteMap from 'ol/source/XYZ';
 import XYZ from 'ol/source/XYZ';
 import Overlay from 'ol/Overlay';
 import { GetContext } from "../../App/Context";
-import { layerCheck } from "../../../utils/map_util";
+import { getOverlayContent, layerCheck } from "../../../utils/map_util";
 import { useParams } from "react-router-dom";
 
 
@@ -576,7 +576,9 @@ const PkcpMap = ({ mapData }) => {
     olmap.on('singleclick', (event) => {
       viewResolution = /** @type {number} */(viewProps.getResolution());
       const coordinates = event.coordinate;
+
       const element = document.getElementById('info');
+      element.innerHTML = ""
       const dupElement = element.cloneNode(true);
       dupElement.style.display = 'block';
       overlay.setElement(dupElement);
@@ -594,6 +596,12 @@ const PkcpMap = ({ mapData }) => {
           .then(response => response.json())
           .then((html) => {
             if (html.features.length > 0) {
+              const items = [
+                'district', 'upazila', 'union_name',
+                'mouza_name', 'sheet_no', 'jl_no', 'plot_no',
+                'plot_no', 'landuse', 'plot_type'
+              ]
+
               // const shownData = `
               // <b>Structure Name</b>: ${html.features[0].properties.str_name ? html.features[0].properties.str_name : 'Not Found'} 
               // <br> <b>Structure Type</b>: ${html.features[0].properties.str_typ ? html.features[0].properties.str_typ : 'Not Found'} 
@@ -604,22 +612,24 @@ const PkcpMap = ({ mapData }) => {
               // <br><b>Ward No </b>:${html.features[0].properties.Ward_No ? html.features[0].properties.Ward_No : 'Not Found'} 
               // <br><b>Municipality </b>:${html.features[0].properties.Municipality ? html.features[0].properties.Municipality : 'Not Found'} 
               // <br><b>Upazila </b>:${html.features[0].properties.Upazila ? html.features[0].properties.Upazila : 'Not Found'} `;
-              const shownData = `
-              <b>District</b>: ${html.features[0].properties.district ? html.features[0].properties.district : 'Not Found'}
-              <br> <b>Upazila</b>: ${html.features[0].properties.upazila ? html.features[0].properties.upazila : 'Not Found'}
-              <br> <b>Union name</b>: ${html.features[0].properties.union_name ? html.features[0].properties.union_name : 'Not Found'}
-              <br> <b>Mouza Name</b>: ${html.features[0].properties.mouza_name ? html.features[0].properties.mouza_name : 'Not Found'}
-              <br> <b>Sheet No</b>: ${html.features[0].properties.sheet_no ? html.features[0].properties.sheet_no : 'Not Found'}
-              <br> <b>JL No</b>: ${html.features[0].properties.jl_no ? html.features[0].properties.jl_no : 'Not Found'}
-              <br> <b>Plot No</b>: ${html.features[0].properties.plot_no ? html.features[0].properties.plot_no : 'Not Found'}
-              <br> <b>Landuse</b>: ${html.features[0].properties.landuse ? html.features[0].properties.landuse : 'Not Found'}            
-              <br> <b>Plot Type</b>: ${html.features[0].properties.plot_type ? html.features[0].properties.plot_type : 'Not Found'}
-             
-             
-              
-              
-              `;
-              dupElement.innerHTML = shownData;
+              // const shownData = `
+              // <b>District</b>: ${html.features[0].properties.district ? html.features[0].properties.district : 'Not Found'}
+              // <br> <b>Upazila</b>: ${html.features[0].properties.upazila ? html.features[0].properties.upazila : 'Not Found'}
+              // <br> <b>Union name</b>: ${html.features[0].properties.union_name ? html.features[0].properties.union_name : 'Not Found'}
+              // <br> <b>Mouza Name</b>: ${html.features[0].properties.mouza_name ? html.features[0].properties.mouza_name : 'Not Found'}
+              // <br> <b>Sheet No</b>: ${html.features[0].properties.sheet_no ? html.features[0].properties.sheet_no : 'Not Found'}
+              // <br> <b>JL No</b>: ${html.features[0].properties.jl_no ? html.features[0].properties.jl_no : 'Not Found'}
+              // <br> <b>Plot No</b>: ${html.features[0].properties.plot_no ? html.features[0].properties.plot_no : 'Not Found'}
+              // <br> <b>Landuse</b>: ${html.features[0].properties.landuse ? html.features[0].properties.landuse : 'Not Found'}            
+              // <br> <b>Plot Type</b>: ${html.features[0].properties.plot_type ? html.features[0].properties.plot_type : 'Not Found'}
+
+
+
+
+              // `;
+              const shownData = getOverlayContent(html.features[0].properties, items)
+
+              dupElement.appendChild(shownData);
               if (olmap.getView().getZoom() > 17) {
                 olmap.addOverlay(overlay);
               }

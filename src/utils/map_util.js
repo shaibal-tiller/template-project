@@ -48,6 +48,32 @@ export const setInitMap = () => {
   return olmap
 }
 
+
+export const getOverlayContent = (data, items) => {
+  if (data && items && items.length) {
+    
+    const container = document.createElement('div')
+    container.style.position = 'relative'
+    const closebtn = document.createElement('p')
+    closebtn.innerHTML = 'x'
+    closebtn.className = 'absolute w-8 h-8 top-0 text-end right-0 hover:scale-105 hover:cursor-pointer hover:text-red-500 text-sm'
+    closebtn.onclick = () => {
+      document.getElementById('info').style.display= 'none'
+    }
+    container.appendChild(closebtn)
+
+    const content = document.createElement('div')
+
+    content.innerHTML = `${items.map(el => {
+      return '<div><b>' + el.split('_').map(e=>
+        e[0].toUpperCase()+e.slice(1,e.length)).join(' ') + '</b>: ' + data[el] + '</div>'
+    }).join('\n')}`
+    container.appendChild(content)
+    return container
+  }
+}
+
+
 export const layerCheck = (mainMapName, lName) => {
   var parser = new WMSCapabilities();
 
@@ -66,7 +92,7 @@ export const layerCheck = (mainMapName, lName) => {
       mainMapName.getView().fit(layer.BoundingBox[0].extent);
     }
     if (layer.Layer) {
-    
+
       layer.Layer.forEach(function (layer) {
         found = found || searchLayer(layer, name)
       })
